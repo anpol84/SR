@@ -83,17 +83,12 @@ function createWaiter($waiterInput){
 
 function getWaiter($waiterParams){
     global $conn;
-
     if ($waiterParams['id'] == null){
         return error('Enter waiter id');
     }
-
     $waiter_id = mysqli_real_escape_string($conn, $waiterParams['id']);
-    
-
     $sql = "SELECT * FROM waiter WHERE id = '$waiter_id'";
     $result = mysqli_query($conn, $sql);
-
     if ($result){
         if (mysqli_num_rows($result) == 1){
             $res = mysqli_fetch_assoc($result);
@@ -130,11 +125,9 @@ function updateWaiter($waiterInput, $waiterParams){
     }else if ($waiterParams['id'] == null){
         return error('Enter id');
     }
-
     $id = mysqli_real_escape_string($conn, $waiterParams['id']);
     $name = mysqli_real_escape_string($conn, $waiterInput['name']);
     $salary = mysqli_real_escape_string($conn, $waiterInput['salary']);
-
     if (empty(trim($name))){
         return error('Enter name');
     }else if (empty(trim($salary))){

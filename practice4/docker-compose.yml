@@ -1,0 +1,36 @@
+version: '3'
+services:
+    db:
+        build: db/
+        volumes:
+            - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - "3309:3309"
+        environment:
+            MYSQL_USERNAME: user
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: appDB
+    server:
+        build: server/
+        volumes:
+            - ./server/index.php:/var/www/html/index.php
+            - ./server/create.php:/var/www/html/create.php
+            - ./server/edit.php:/var/www/html/edit.php
+            - ./server/read.php:/var/www/html/read.php
+            - ./server/delete.php:/var/www/html/delete.php
+            - ./server/style.css:/var/www/html/style.css
+        
+        depends_on:
+            - db    
+    nginx:
+        build: ./nginx
+        ports:
+            - "80:80"
+        depends_on:
+            - db
+            - server
+
+        volumes:
+            - ./nginx/html/:/usr/share/nginx/html
+
+        

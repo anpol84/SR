@@ -53,7 +53,7 @@ function createClient($clientInput){
     $name = mysqli_real_escape_string($conn, $clientInput['name']);
     $table_number = mysqli_real_escape_string($conn, $clientInput['table_number']);
     $waiter_id = mysqli_real_escape_string($conn, $clientInput['waiter_id']);
-
+bvvvvv
     if (empty(trim($name))){
         return error('Enter name');
     }else if (empty(trim($table_number))){
@@ -86,17 +86,12 @@ function createClient($clientInput){
 
 function getClient($clientParams){
     global $conn;
-
     if ($clientParams['id'] == null){
         return error('Enter client id');
     }
-
     $client_id = mysqli_real_escape_string($conn, $clientParams['id']);
-    
-
     $sql = "SELECT * FROM client WHERE id = '$client_id'";
     $result = mysqli_query($conn, $sql);
-
     if ($result){
         if (mysqli_num_rows($result) == 1){
             $res = mysqli_fetch_assoc($result);
@@ -114,8 +109,7 @@ function getClient($clientParams){
             ];
             header("HTTP/1.0 404 Not Founded");
             echo json_encode($data);
-        }
-        
+        }   
     }else{
         $data = [
             'status' => 500,
@@ -133,12 +127,10 @@ function updateClient($clientInput, $clientParams){
     }else if ($clientParams['id'] == null){
         return error('Enter id');
     }
-
     $id = mysqli_real_escape_string($conn, $clientParams['id']);
     $name = mysqli_real_escape_string($conn, $clientInput['name']);
     $table_number = mysqli_real_escape_string($conn, $clientInput['table_number']);
     $waiter_id = mysqli_real_escape_string($conn, $clientInput['waiter_id']);
-
     if (empty(trim($name))){
         return error('Enter name');
     }else if (empty(trim($table_number))){
