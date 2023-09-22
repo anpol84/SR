@@ -1,6 +1,6 @@
 <html lang="en">
 	<head>
-	<title>Item</title>
+	<title>Category</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -35,15 +35,21 @@
             $parts = parse_url($url);
             parse_str($parts['query'], $query);
             $id = $query['id'];
-            $sql = "SELECT i.name name, i.price price, c.name c_name FROM item i JOIN category c ON i.category_id = c.id WHERE i.id = $id";
+            $sql = "SELECT name FROM category WHERE id = $id";
+            $sql2 = "SELECT i.name name FROM category c JOIN item i on c.id = i.category_id WHERE c.id = $id";
             $conn = new mysqli("db", "user", "password", "appDB");
             $items = mysqli_query($conn, $sql);
+            $i = mysqli_query($conn, $sql2);
             mysqli_close($conn);
             while($item = mysqli_fetch_array($items)) {
-                echo "<p>name:{$item['name']}</p><p>price:{$item['price']}</p><p>category:{$item['c_name']}</p>";
+                echo "<p>name:{$item['name']}</p>";
+            }
+            echo "<p>Items</p>";
+            while($i2 = mysqli_fetch_array($i)) {
+                echo "<p>{$i2['name']}</p>";
             }
         ?>
-        <a href="index.php">Back</a>
+        <a href="indexCategory.php">Back</a>
 	
 	</body>
 </html>

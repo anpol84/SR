@@ -1,6 +1,6 @@
 <html lang="en">
 	<head>
-	<title>Hello world page</title>
+	<title>Categories</title>
 		<style>
     body {
       font-family: Arial, sans-serif;
@@ -83,19 +83,15 @@
 	</head>
 	<body>
 	<table>
-		<tr><th>Id</th><th>Name</th><th>Price</th><th>Category</th><th>Action</th></tr>
+		<tr><th>Id</th><th>Name</th><th>Action</th></tr>
 		<?php
 		$mysqli = new mysqli("db", "user", "password", "appDB");
-		$items = mysqli_query($mysqli, "SELECT i.name name, i.price price, i.id id, c.name c_name
-     FROM item i JOIN category c on i.category_id = c.id;");
-    
+		$items = mysqli_query($mysqli, "SELECT * FROM category");
 		while($item = mysqli_fetch_array($items)) {
-    
-			echo "<tr><td>{$item['id']}</td><td>{$item['name']}</td><td>{$item['price']}</td>
-      <td>{$item['c_name']}</td><td>
-			<a href='read.php?id=". $item['id'] ."' title='View Item'>read</a>
-			<a href='edit.php?id=". $item['id'] ."' title='Edit Item'>edit</a>
-			<a href='delete.php?id=". $item['id'] ."' title='Delete Item'>delete</a>
+			echo "<tr><td>{$item['id']}</td><td>{$item['name']}</td><td>
+			<a href='readCategory.php?id=". $item['id'] ."' title='View Item'>read</a>
+			<a href='editCategory.php?id=". $item['id'] ."' title='Edit Item'>edit</a>
+			<a href='deleteCategory.php?id=". $item['id'] ."' title='Delete Item'>delete</a>
 			</td></tr>";
 			
 		}
@@ -104,8 +100,8 @@
 		?>
 		</table>
 
-		<a href="create.php" class="add-item-button">Add item</a>
-    <a href="indexCategory.php" class="add-item-button">Categories</a>
+		<a href="createCategory.php" class="add-item-button">Add Category</a>
+        <a href="index.php" class="add-item-button">Items</a>
 		<a href="contacts.html" class="add-item-button">Contacts</a>
 		<a href="information.html" class="add-item-button">Information</a>
 	</body>

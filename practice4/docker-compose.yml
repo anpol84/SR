@@ -18,7 +18,11 @@ services:
             - ./server/edit.php:/var/www/html/edit.php
             - ./server/read.php:/var/www/html/read.php
             - ./server/delete.php:/var/www/html/delete.php
-            - ./server/style.css:/var/www/html/style.css
+            - ./server/indexCategory.php:/var/www/html/indexCategory.php
+            - ./server/createCategory.php:/var/www/html/createCategory.php
+            - ./server/editCategory.php:/var/www/html/editCategory.php
+            - ./server/readCategory.php:/var/www/html/readCategory.php
+            - ./server/deleteCategory.php:/var/www/html/deleteCategory.php
         
         depends_on:
             - db    
@@ -29,7 +33,6 @@ services:
         depends_on:
             - db
             - server
-
         volumes:
             - ./nginx/html/:/usr/share/nginx/html
 
